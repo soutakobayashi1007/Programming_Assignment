@@ -62,17 +62,14 @@ class BingoCard:
         return False
 
     def render(self) -> str:
-        """
-        CUI表示。開いたマスは括弧、FREE は 'F' 表示。
-        例:  (F )  ( 7)   23  のように幅をそろえる
-        """
+        """CUI表示。開いたマスは括弧、FREE は 'F' 表示。"""
         header = "  B   I   N   G   O"
         lines = [header]
         for r in range(5):
             cells = []
             for c in range(5):
                 n = self.grid[r][c]
-                raw = "F " if n is None else f"{n:>2}"  # 2文字に整形
+                raw = "F " if n is None else f"{n:>2}" 
                 cell = f"({raw})" if self.opened[r][c] else f" {raw} "
                 cells.append(cell)
             lines.append(" ".join(cells))
