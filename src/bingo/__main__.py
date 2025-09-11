@@ -1,24 +1,21 @@
-from bingo.balls import BingoBalls
-from bingo.card import BingoCard
-from bingo.result import count_reach, count_bingo
+from bingo.app import Session
 
 HELP = "コマンド: n=New Game, d=Draw, r=Reset(白紙), s=Status, q=Quit"
 
-def _print_status(card, balls):
-    if card is None or balls is None:
+def print_status(sess: Session) -> None:
+    st = sess.status()
+    if not sess.started():
         print("(カード未生成)")
+        print(f"Drawn: {st['drawn']} | Remaining: {st['remaining']} | Reach: {st['reach']} | Bingo: {st['bingo']}")
         return
-    reach = count_reach(card.opened)
-    bingo  = count_bingo(card.opened)
-    print(card.render())
-    print(f"Drawn: {balls.drawn()} | Remaining: {balls.remaining()} | Reach: {reach} | Bingo: {bingo}")
+    print(sess.card.render())            # type: ignore[union-attr]
+    print(f"Drawn: {st['drawn']} | Remaining: {st['remaining']} | Reach: {st['reach']} | Bingo: {st['bingo']}")
 
 def main() -> None:
-    balls = None
-    card  = None
+    sess = Session()
 
     print("=== BINGO ===")
-    _print_status(card, balls)
+    print_status(sess)
     print("\n" + HELP + "\n")
 
     while True:
@@ -32,28 +29,30 @@ def main() -> None:
         if s in ("q", "quit", "exit"):
             break
         elif s in ("n", "new"):
-            balls = BingoBalls()
-            card  = BingoCard.from_random()
+            sess.new_game()
             print("New Game started.")
-            _print_status(card, balls)
+            print_status(sess)
         elif s in ("r", "reset"):
-            balls = None
-            card  = None
+            sess.reset_blank()
             print("白紙にリセットしました。")
-            _print_status(card, balls)
+            print_status(sess)
         elif s in ("d", "draw"):
-            if balls is None or card is None:
-                print("まず 'n' (New Game) を実行してください。")
-                continue
-            n = balls.draw()
+            n = sess.draw_once()
             if n is None:
-                print("ボールはもうありません。")
-                continue
-            card.mark(n)
-            print(f"Ball: {n}")
-            _print_status(card, balls)
+                st = sess.status()
+                if not sess.started():
+                    print("まず 'n' (New Game) を実行してください。")
+                elif st["complete"]:
+                    print("ビンゴが12に達しました。ゲーム終了です。")
+                elif st["remaining"] == 0:
+                    print("ボールはもうありません。")
+                else:
+                    print("引けませんでした。")
+            else:
+                print(f"Ball: {n}")
+                print_status(sess)
         elif s in ("s", "status"):
-            _print_status(card, balls)
+            print_status(sess)
         else:
             print("不明なコマンド。 " + HELP)
 
