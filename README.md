@@ -1,12 +1,53 @@
-# Bingo (Assignment)
+# Bingo Game
+
+Python（標準ライブラリのみ）で動作するビンゴゲーム。
+
+## 概要
+- 5×5のビンゴカード（中央はFREE）
+- 1〜75の数字を重複なく抽選
+- ビンゴが12本になったらゲーム停止
+- 起動直後は白紙、New Gameでゲーム開始
+
+## 必要条件
+- **Python**: 3.11〜3.13
+- **Tkinter**: 通常はPythonに同梱
 
 ## セットアップ
-1. 仮想環境: `python -m venv .venv`（Windows: `py -3.12.4 -m venv .venv`）
-2. 有効化: `source .venv/bin/activate`（Windows: `.venv\Scripts\activate`）
-3. 開発ツール: `pip install -U pip && pip install -r requirements-dev.txt`
+プロジェクト直下で以下のコマンドを実行：
 
-## よく使うコマンド
-- テスト: `pytest`
-- Lint: `ruff check src tests`
-- フォーマット: `black src tests`
-- 実行: `python -m bingo`
+```bash
+# 仮想環境の作成
+python -m venv .venv
+
+# 仮想環境の有効化
+# macOS/Linux
+source .venv/bin/activate
+# Windows (PowerShell)
+.\.venv\Scripts\Activate.ps1
+
+# pipのアップグレード
+python -m pip install --upgrade pip
+
+# プロジェクトのインストール
+pip install -e .
+```
+
+## 実行方法
+
+### CLI
+```bash
+python -m bingo
+```
+**操作**:
+- `n`: New Game
+- `d`: Draw
+- `q`: Quit
+
+### GUI (Tkinter)
+```bash
+python -m bingo.gui_tk
+```
+**ショートカット**:
+- `n`: New Game
+- `d`: Draw
+- `q`: Quit

@@ -1,15 +1,18 @@
 from bingo.result import count_reach, count_bingo
 
+
 def blank_opened(n: int = 5, free_center: bool = False):
     opened = [[False] * n for _ in range(n)]
     if free_center:
         opened[2][2] = True
     return opened
 
+
 def test_start_state_with_free_has_no_reach_or_bingo():
     o = blank_opened(free_center=True)
     assert count_reach(o) == 0
     assert count_bingo(o) == 0
+
 
 def test_row_reach_and_bingo():
     o = blank_opened()
@@ -19,8 +22,9 @@ def test_row_reach_and_bingo():
     assert count_bingo(o) == 0
     # 行0を5つ開ける（ビンゴ）
     o[0][4] = True
-    assert count_reach(o) == 0          # ビンゴはリーチに含めない
+    assert count_reach(o) == 0  # ビンゴはリーチに含めない
     assert count_bingo(o) == 1
+
 
 def test_col_and_diag_reaches():
     o = blank_opened()
@@ -33,6 +37,7 @@ def test_col_and_diag_reaches():
     o[2][2] = False  # 対角線のどこか1つだけ閉じる
     assert count_reach(o) == 2
     assert count_bingo(o) == 0
+
 
 def test_multiple_bingos_counted_independently():
     o = blank_opened()

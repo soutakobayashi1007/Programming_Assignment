@@ -1,12 +1,9 @@
 [project]
 name = "bingo"
 version = "0.0.1"
-description = "CLI Bingo game assignment"
+description = "Bingo game assignment"
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
-license = {text = "MIT"}
-authors = [{name = "Your Name"}]
-dependencies = []  
 
 [project.scripts]
 bingo = "bingo.__main__:main"  # `python -m bingo` / `bingo` で実行できる
@@ -16,7 +13,7 @@ line-length = 100
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py312"
 src = ["src"]
 
 [tool.pytest.ini_options]
@@ -28,9 +25,7 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-# ルート→src をルート扱いにする宣言
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
-# src の下からパッケージを探索
 where = ["src"]
