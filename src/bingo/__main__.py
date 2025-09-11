@@ -1,5 +1,57 @@
+from bingo.balls import BingoBalls
+from bingo.card import BingoCard
+
+HELP = "コマンド: d=次のボール, m <数字>=手動マーク, r=新しいカード, q=終了"
+
+
 def main() -> None:
-    print("Bingo CLI: hello")
+    balls = BingoBalls()
+    card = BingoCard.from_random()
+
+    print("=== BINGO ===")
+    print(card.render())
+    print("\n" + HELP + "\n")
+
+    while True:
+        try:
+            s = input("> ").strip()
+        except EOFError:
+            break
+        if not s:
+            continue
+
+        parts = s.split()
+        cmd = parts[0].lower()
+
+        if cmd in ("q", "quit", "exit"):
+            break
+
+        elif cmd in ("d", "draw"):
+            n = balls.draw()
+            if n is None:
+                print("ボールはもうありません。")
+            else:
+                card.mark(n)
+                print(f"Ball: {n}（残り {balls.remaining()}）")
+                print(card.render())
+
+        elif cmd in ("m", "mark"):
+            if len(parts) < 2 or not parts[1].isdigit():
+                print("使い方: m <数字>")
+                continue
+            n = int(parts[1])
+            changed = card.mark(n)
+            print("marked" if changed else "not found / already open")
+            print(card.render())
+
+        elif cmd in ("r", "reset"):
+            balls = BingoBalls()
+            card = BingoCard.from_random()
+            print("新しいカードを作成しました。")
+            print(card.render())
+
+        else:
+            print("不明なコマンド。 " + HELP)
 
 
 if __name__ == "__main__":
