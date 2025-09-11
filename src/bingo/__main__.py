@@ -1,15 +1,21 @@
 from bingo.balls import BingoBalls
 from bingo.card import BingoCard
+from bingo.result import count_reach, count_bingo
 
 HELP = "コマンド: d=次のボール, m <数字>=手動マーク, r=新しいカード, q=終了"
 
+def _print_status(card: BingoCard, balls: BingoBalls) -> None:
+    reach = count_reach(card.opened)
+    bingo = count_bingo(card.opened)
+    print(card.render())
+    print(f"Reach: {reach} / Bingo: {bingo}  |  残りボール: {balls.remaining()}")
 
 def main() -> None:
     balls = BingoBalls()
     card = BingoCard.from_random()
 
     print("=== BINGO ===")
-    print(card.render())
+    _print_status(card, balls)
     print("\n" + HELP + "\n")
 
     while True:
@@ -32,8 +38,8 @@ def main() -> None:
                 print("ボールはもうありません。")
             else:
                 card.mark(n)
-                print(f"Ball: {n}（残り {balls.remaining()}）")
-                print(card.render())
+                print(f"Ball: {n}")
+                _print_status(card, balls)
 
         elif cmd in ("m", "mark"):
             if len(parts) < 2 or not parts[1].isdigit():
@@ -42,17 +48,16 @@ def main() -> None:
             n = int(parts[1])
             changed = card.mark(n)
             print("marked" if changed else "not found / already open")
-            print(card.render())
+            _print_status(card, balls)
 
         elif cmd in ("r", "reset"):
             balls = BingoBalls()
             card = BingoCard.from_random()
             print("新しいカードを作成しました。")
-            print(card.render())
+            _print_status(card, balls)
 
         else:
             print("不明なコマンド。 " + HELP)
-
 
 if __name__ == "__main__":
     main()
