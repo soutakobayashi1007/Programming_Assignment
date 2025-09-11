@@ -1,21 +1,20 @@
 from bingo.app import Session
 
-HELP = "コマンド: n=New Game, d=Draw, r=Reset(白紙), s=Status, q=Quit"
+HELP = "コマンド: n=New Game, d=Draw, q=Quit"
 
 def print_status(sess: Session) -> None:
     st = sess.status()
     if not sess.started():
         print("(カード未生成)")
-        print(f"Drawn: {st['drawn']} | Remaining: {st['remaining']} | Reach: {st['reach']} | Bingo: {st['bingo']}")
         return
-    print(sess.card.render())            # type: ignore[union-attr]
+    print(sess.card.render())
     print(f"Drawn: {st['drawn']} | Remaining: {st['remaining']} | Reach: {st['reach']} | Bingo: {st['bingo']}")
 
 def main() -> None:
     sess = Session()
 
     print("=== BINGO ===")
-    print_status(sess)
+    print("(カード未生成)")
     print("\n" + HELP + "\n")
 
     while True:
@@ -32,10 +31,6 @@ def main() -> None:
             sess.new_game()
             print("New Game started.")
             print_status(sess)
-        elif s in ("r", "reset"):
-            sess.reset_blank()
-            print("白紙にリセットしました。")
-            print_status(sess)
         elif s in ("d", "draw"):
             n = sess.draw_once()
             if n is None:
@@ -51,8 +46,6 @@ def main() -> None:
             else:
                 print(f"Ball: {n}")
                 print_status(sess)
-        elif s in ("s", "status"):
-            print_status(sess)
         else:
             print("不明なコマンド。 " + HELP)
 

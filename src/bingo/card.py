@@ -69,7 +69,7 @@ class BingoCard:
             cells = []
             for c in range(5):
                 n = self.grid[r][c]
-                raw = "F " if n is None else f"{n:>2}" 
+                raw = "F " if n is None else f"{n:>2}"
                 cell = f"({raw})" if self.opened[r][c] else f" {raw} "
                 cells.append(cell)
             lines.append(" ".join(cells))
