@@ -1,5 +1,6 @@
 from bingo.balls import BingoBalls
 
+
 def test_draw_unique_and_range_and_exhaust():
     b = BingoBalls(seed=42)
     seen = set()
