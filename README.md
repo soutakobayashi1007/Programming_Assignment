@@ -35,18 +35,6 @@ python -m pip install --upgrade pip
 pip install -e .
 ```
 
-## 開発者向け
-
-### テスト用環境のセットアップと実行
-このプロジェクトでは、pytestをテストフレームワークとして使用し、ruff（linter）とblack（formatter）でコード品質を管理しています。開発依存は`requirements-dev.txt`に記載されており、`pyproject.toml`でpytestの設定を定義しています（例: 簡易出力`-q`、テストパス`tests/`）。
-
-#### 1. 開発依存のインストール
-仮想環境をアクティブ化した後、以下のコマンドでインストール：
-```bash
-pip install -r requirements-dev.txt
-```
-
-
 ## 実行方法
 
 ### CUI
@@ -66,3 +54,17 @@ python -m bingo.gui_tk
 - `n`: New Game
 - `d`: Draw
 - `q`: Quit
+
+
+
+
+## 開発者向け
+
+### テスト用環境のセットアップと実行
+このプロジェクトでは、pytestをテストフレームワークとして使用し、ruff（linter）とblack（formatter）でコード品質を管理しています。開発依存は`requirements-dev.txt`に記載されており、`pyproject.toml`でpytestの設定を定義しています（例: 簡易出力`-q`、テストパス`tests/`）。
+
+#### 1. 開発依存のインストール
+仮想環境をアクティブ化した後、以下のコマンドでインストール：
+```bash
+pip install -r requirements-dev.txt
+```
