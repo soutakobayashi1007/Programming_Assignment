@@ -33,7 +33,7 @@ def count_bingo(opened: GridBool) -> int:
 
 def count_reach(opened: GridBool) -> int:
     """
-    ちょうど 4/5 だけ開いているライン数を数える。
+    4/5 だけ開いているライン数を数える。
     （ビンゴ済みラインはここには含まれない）
     """
     return sum(1 for line in _LINES if sum(1 for r, c in line if opened[r][c]) == 4)
