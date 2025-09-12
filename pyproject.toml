@@ -3,7 +3,7 @@ name = "bingo"
 version = "0.0.1"
 description = "Bingo game assignment"
 readme = "README.md"
-requires-python = ">=3.11,<3.13"
+requires-python = ">=3.11,<=3.14"
 
 [project.scripts]
 bingo = "bingo.__main__:main"  # `python -m bingo` / `bingo` で実行できる

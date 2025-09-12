@@ -13,9 +13,9 @@ class BingoCard:
     - index[n]: 数字 n -> (行, 列) を O(1) で逆引きする辞書（FREEは登録しない）
     """
 
-    grid: List[List[Optional[int]]]  # ← 中央FREEに対応するため Optional[int]
-    opened: List[List[bool]]
-    index: Dict[int, Tuple[int, int]]
+    grid: List[List[Optional[int]]]  # 中央FREEに対応するため Optional[int]
+    opened: List[List[bool]] 
+    index: Dict[int, Tuple[int, int]] # 位置（行, 列）を逆引きするための辞書
 
     @staticmethod
     def from_random(seed: Optional[int] = None) -> "BingoCard":

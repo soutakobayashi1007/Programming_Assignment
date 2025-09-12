@@ -2,7 +2,7 @@ from bingo.app import Session
 
 HELP = "コマンド: n=New Game, d=Draw, q=Quit"
 
-def print_status(sess: Session) -> None:
+def print_status(sess: Session) -> None: #ステータスを表示
     st = sess.status()
     if not sess.started():
         print("(カード未生成)")
@@ -10,7 +10,7 @@ def print_status(sess: Session) -> None:
     print(sess.card.render())
     print(f"Drawn: {st['drawn']} | Remaining: {st['remaining']} | Reach: {st['reach']} | Bingo: {st['bingo']}")
 
-def main() -> None:
+def main() -> None: #CLIのメイン処理
     sess = Session()
 
     print("=== BINGO ===")

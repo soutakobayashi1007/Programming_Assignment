@@ -16,8 +16,8 @@ class BingoBalls:
         self._i += 1
         return n
 
-    def remaining(self) -> int:
+    def remaining(self) -> int: #残玉数
         return len(self._balls) - self._i
 
-    def drawn(self) -> int:
+    def drawn(self) -> int: #排出数
         return self._i
